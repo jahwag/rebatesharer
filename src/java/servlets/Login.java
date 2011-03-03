@@ -38,9 +38,6 @@ public class Login extends HttpServlet {
             out.println("<title>Servlet Login</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-
-
 
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
@@ -58,27 +55,26 @@ public class Login extends HttpServlet {
                 // Do query
                 String stmt = "SELECT email FROM USERS where email='" + user + "' and pass=md5(" + pass + ")";
                 // response.getWriter().write(stmt);
-                rs = con.createStatement().executeQuery(
-                        stmt);
+                rs = con.createStatement().executeQuery(stmt);
 
-                if (rs.next()) {
+                out.println("<h1>Logging you in...<h/><br/>");
+                out.println("<p>You entered username=" + user + " and password=" + pass + "</p>");
+
+                boolean res = rs.next();
+
+                if (!res) {
+                    out.println("<h1>Login failed...</h1>");
+                    out.println("<p>You should be redirected now.</p>");
+                    //response.sendRedirect("index.html");
+                } else {
                     String str = rs.getString(1);
-                    response.getWriter().write("Successfully logged in as " + str+".");
+                    out.println("<h1>Login was successful...welcome " + str + "</h1>");
                     response.sendRedirect("main.html");
                 }
-                else {
-                    response.getWriter().write("Login failed.");
-                    response.sendRedirect("index.html");
-                }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                out.println(e.getCause().getMessage());
             }
-
-
-
             out.println("</body>");
             out.println("</html>");
         } finally {
