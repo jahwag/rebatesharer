@@ -1,32 +1,58 @@
 .shadow {
-	box-shadow: 1px 3px 20px#888;
-	moz-box-shadow: 1px 3px 20px#888;
-	o-box-shadow: 1px 3px 20px#888;
-	webkit-box-shadow: 1px 3px 20px#888;
+    box-shadow: 1px 3px 20px#888;
+    moz-box-shadow: 1px 3px 20px#888;
+    o-box-shadow: 1px 3px 20px#888;
+    webkit-box-shadow: 1px 3px 20px#888;
 }
 body {
-	background-color: #333;
-	font-family: Georgia,Arial,sans-serif;
+    font-family: Georgia,Arial,sans-serif;
 }
+
+body > * {
+    font-family: Georgia,Arial,sans-serif;
+
+
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.3, rgb(97,134,182)),
+        color-stop(0.65, rgb(127,161,219)),
+        color-stop(0.83, rgb(166,194,255))
+        );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(97,134,182) 30%,
+        rgb(127,161,219) 65%,
+        rgb(166,194,255) 83%
+        );
+
+}
+
 h1,h2,h3,h4 {
-	font-family: "Graublau Web",Helvetica,sans-serif;
+    font-family: "Graublau Web",Helvetica,sans-serif;
+    color:black;
+    text-shadow: gray 1px 1px 2px;
+}
+
+.toolbar {
+    text-shadow: gray 1px 1px 5px;
 }
 
 #left {
-	left:0%;
-	width:50%;
-	height:100%;
-	position:absolute;
+    left:0%;
+    width:50%;
+    height:100%;
+    position:absolute;
 }
 
 #right {
-	left:50%;
-	width:50%;
-	height:100%;
-	position:absolute;
+    left:50%;
+    width:50%;
+    height:100%;
+    position:absolute;
 }
-#home{
-}
+
 
 .register {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#aaa), color-stop(.6,#CCCCCC));
