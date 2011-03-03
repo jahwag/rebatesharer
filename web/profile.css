@@ -1,0 +1,31 @@
+#avatar {
+	left:0%;
+	width:92px;
+	height:92px;
+	position:absolute;
+        background-image: url('./img/user_icon.png');
+        background-repeat: no-repeat;
+}
+#info {
+	left:92px;
+	width:auto;
+	height:66%;
+	position:absolute;
+}
+
+#menu {
+        top:66%;
+	left:0%;
+	width:100%;
+	height:25%;
+	position:absolute;
+}
+
+#contribs {
+        top:75%;
+	left:0%;
+	width:100%;
+	height:25%;
+	position:absolute;
+        background-color: orange;
+}
