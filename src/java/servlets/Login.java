@@ -64,9 +64,11 @@ public class Login extends HttpServlet {
                 if (rs.next()) {
                     String str = rs.getString(1);
                     response.getWriter().write("Successfully logged in as " + str+".");
+                    response.sendRedirect("main.html");
                 }
                 else {
                     response.getWriter().write("Login failed.");
+                    response.sendRedirect("index.html");
                 }
 
             } catch (SQLException e) {

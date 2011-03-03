@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <link rel="stylesheet" href="jqtouch/jqtouch.min.css" type="text/css" />
+        <link rel="stylesheet" href="themes/apple/theme.min.css" type="text/css" />
+        <link rel="stylesheet" href="theme.css" type="text/css" />
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jqtouch/jqtouch.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript">
+            $.jQTouch();
+        </script>
+        <script type="text/javascript">
+            function submitform()
+            {
+                document.forms["loginform"].submit();
+
+            }
+        </script>
+
+
+        <title>Rebate Sharer V0.01 - Share rebates with the world!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div id="home">
+            <div class="toolbar">
+                <h1>Rebate Sharer</h1>
+            </div>
+            <form id="loginform" action="Login" method="post">
+                <h2>Register account</h2>
+                <p>
+                    <br/>
+                    Full name: <input type="text" name="full name" /><br />
+                    Email: <input type="text" name="username" /><br />
+                    Password: <input type="password" name="password" /><br />
+                    Confirm Password: <input type="password" name="confirmpassword" /><br />
+                    <input type="checkbox" name="vehicle" value="Remember_me" />I have read and accept the terms of service.<br />
+                    <button type="reset" value="Reset">Reset</button>
+                    <a href="index.html"><button type="button" value="Back">Back</button></a>
+                    <button type="button" value="Register" onclick="javascript: submitform()">Register</button>
+                </p>
+
+            </form>
+        </div>
+    </body>
+</html>
+

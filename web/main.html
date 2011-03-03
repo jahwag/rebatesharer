@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <link rel="stylesheet" href="jqtouch/jqtouch.min.css" type="text/css" />
+        <link rel="stylesheet" href="themes/apple/theme.min.css" type="text/css" />
+        <link rel="stylesheet" href="theme.css" type="text/css" />
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jqtouch/jqtouch.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript">
+            $.jQTouch();
+        </script>
+        <script type="text/javascript">
+            function submitform()
+            {
+                document.forms["loginform"].submit();
+
+            }
+        </script>
+        <title>Rebate Sharer V0.01 - Share rebates with the world!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div id="home">
+            <div class="toolbar">
+                <h1>Book Store</h1>
+            </div>
+            <ul class="edgetoedge">
+                <li class="arrow"><a href="#view_profile">View profile</a></li>
+                <li class="arrow"><a href="#upload_rebate">Upload rebate</a></li>
+                <li class="arrow"><a href="#search">Search rebates</a></li>
+            </ul>
+        </div>
+        <div id="view_profile">
+            <div class="toolbar">
+                <h1>View profile</h1>
+                <a class="button back" href="#">Back</a>
+            </div>
+            <p>Welcome ...</p>
+        </div>
+        <div id="upload_rebate">
+            <div class="toolbar">
+                <h1>Upload rebate</h1>
+                <a href="#upload_rebate_1" class="button flip">Continue</a>
+            </div>
+            <p>You're just three steps away form sharing your rebate!</p>
+            <ul>
+                <li>1. Take a picture of the product.</li>
+                <li>2. Take a picture of the product price tag.</li>
+                <li>3. If necessary, manually edit the captured fields.</li>
+            </ul>
+            <a class="button back" href="#">Back</a>
+        </div>
+        <div id="upload_rebate_1">
+            <div class="toolbar">
+                <h1>Upload rebate - Step 1</h1>
+            </div>
+            <p>Snap a photo of the product!</p>
+            <a class="button back" href="#">Back</a>
+        </div>
+        <div id="upload_rebate_2">
+            <div class="toolbar">
+                <h1>Upload rebate - Step 2</h1>
+            </div>
+            <p>Snap a photo of the product!</p>
+            <a class="button back" href="#">Back</a>
+        </div>
+        <div id="search">
+            <div class="toolbar">
+                <h1>Search</h1>
+
+                <a class="button back" href="#">Back</a>
+            </div>
+            <p>Search</p>
+        </div>
+    </body>
+</html>
+
