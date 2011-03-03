@@ -2,17 +2,16 @@ insert into USERS values('jahziah@kth.se', 'Jahziah Wagner', md5(123))
 
 
 
-CREATE TABLE `rebate_sharer`.`contributions` (
-  `pname` VARCHAR(50)  NOT NULL,
-  `orgprice` INTEGER UNSIGNED NOT NULL,
-  `discprice` INTEGER UNSIGNED NOT NULL,
-  `location` VARCHAR(30)  NOT NULL,
-  `email` VARCHAR(30)  NOT NULL,
-  `timestamp` TIMESTAMP  NOT NULL,
+CREATE TABLE  `rebate_sharer`.`contributions` (
+  `pname` varchar(50) NOT NULL,
+  `orgprice` int(10) unsigned NOT NULL,
+  `discprice` int(10) unsigned NOT NULL,
+  `location` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `comment` varchar(100) NOT NULL,
+  `photo` blob NOT NULL,
   PRIMARY KEY (`pname`),
-  CONSTRAINT `email_fk` FOREIGN KEY `email_fk` (`email`)
-    REFERENCES `USERS` (`email`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT
-)
-ENGINE = InnoDB;
+  KEY `new_fk_constraint` (`email`),
+  CONSTRAINT `new_fk_constraint` FOREIGN KEY (`email`) REFERENCES `USERS` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
