@@ -1,0 +1,31 @@
+.shadow {
+	box-shadow: 1px 3px 20px#888;
+	moz-box-shadow: 1px 3px 20px#888;
+	o-box-shadow: 1px 3px 20px#888;
+	webkit-box-shadow: 1px 3px 20px#888;
+}
+body {
+	background-color: #333;
+	font-family: Georgia,Arial,sans-serif;
+}
+h1,h2,h3,h4 {
+	font-family: "Graublau Web",Helvetica,sans-serif;
+}
+
+#left {
+	left:0%;
+	//background-color: blue;
+	width:50%;
+	height:100%;
+	position:absolute;
+}
+
+#right {
+	left:50%;
+	//background-color: red;
+	width:50%;
+	height:100%;
+	position:absolute;
+}
+#home{
+}

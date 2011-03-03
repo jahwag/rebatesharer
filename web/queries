@@ -1,0 +1,1 @@
+insert into USERS values('jahziah@kth.se', 'Jahziah Wagner', md5(123))
