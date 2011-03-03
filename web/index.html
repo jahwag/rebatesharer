@@ -1,58 +1,78 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-	<head>
-		<link rel="stylesheet" href="jqtouch/jqtouch.min.css" type="text/css" />
-		<link rel="stylesheet" href="themes/apple/theme.min.css" type="text/css" />
-		<link rel="stylesheet" href="theme.css" type="text/css" />
-		<script type="text/javascript" src="jquery.js"></script> 
-		<script type="text/javascript" src="jqtouch/jqtouch.min.js"></script> 
-		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>    
-		<script type="text/javascript"> 
-      $.jQTouch();
-		</script> 
-		<script type="text/javascript">
-		function submitform()
-		{
-		  document.forms["loginform"].submit();
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <link rel="stylesheet" href="jqtouch/jqtouch.min.css" type="text/css" />
+        <link rel="stylesheet" href="themes/apple/theme.min.css" type="text/css" />
+        <link rel="stylesheet" href="theme.css" type="text/css" />
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jqtouch/jqtouch.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript">
+            $.jQTouch();
+        </script>
+        <script type="text/javascript">
+            function submitform()
+            {
+                document.forms["loginform"].submit();
 
-		}
-		</script>
-
-
-		<title>Rebate Sharer V0.01 - Share rebates with the world!</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	<body onload="init();" id="bdy">
-		<div id="home"> 
-			<div class="toolbar"> 
-				<h1>Rebate Sharer</h1>
-				<a href="#info" class="button flip">Info</a> 
-			</div>
-			<form name="loginform" action="Login" method="post">
+            }
+        </script>
+        <title>Rebate Sharer V0.01 - Share rebates with the world!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div id="home">
+            <div class="toolbar">
+                <h1>Rebate Sharer</h1>
+                <a href="#info" class="button flip">Info</a>
+            </div>
+            <form id="loginform" action="Login" method="post"><h2>Login</h2><p>
 				Welcome to Rebate Sharer!<br />
 				Email: <input type="text" name="username" /><br />
-				<a href="register.html">Don't have an account?</a><br />
-				Password: <input type="Password" name="password" /><br />
-				<a href="forgot_password.html">Forgot your password?</a><br />
-				<input type="checkbox" name="vehicle" value="Remember_me" />Remember me<br />
-				<button type="button" value="Login" onclick="javascript: submitform()">Login</button> 
-			</form>
-		</div>
-		<div id="info"> 
-			<div class="toolbar"> 
-				<h1>Information</h1>
-				<a href="#" class="back">Back</a> 
-			</div>
-			<div class="info">What is Rebate Sharer? <br />
+                                <a href="register.html">Don't have an account?</a><br />
+				Password: <input type="password" name="password" /><br />
+                    <a href="forgot_password.html">Forgot your password?</a><br />
+                    <input type="checkbox" name="vehicle" value="Remember_me" />Remember me<br />
+                    <button type="button" value="Login" onclick="javascript: submitform()">Login</button>
+                </p></form><br/><br/><br/><br/><br/><br/><br/><br/>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                    src="http://www.w3.org/Icons/valid-xhtml10"
+                    alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+        </div>
+        <div id="register">
+            <div class="toolbar">
+                <h1>Rebate Sharer</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <form id="registrationform" action="Register" method="post">
+                <h2>Register account</h2><p>
+                    Full name: <input type="text" name="full name" /><br />
+                    Email: <input type="text" name="username" /><br />
+                    Password: <input type="password" name="password" /><br />
+                    Confirm Password: <input type="password" name="confirmpassword" /><br />
+                    <input type="checkbox" name="vehicle" value="Remember_me" />I have read and accept the terms of service.<br />
+                    <button type="button" value="Login" onclick="javascript: submitform()">Register</button>
+                </p>
+            </form>
+        </div>
+        <div id="info">
+            <div class="toolbar">
+                <h1>Information</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <div class="info">What is Rebate Sharer? <br />
 				Rebate Sharer is a way for people to share rebates they have seen on products 
 				around town. <br />
-				<ul>
-					<li>It helps your friends to find the best rebates around town.</li>
-					<li>It helps you to find the best rebates around town.</li>
-					<li>It helps you earn rebates on products.</li>
-				</ul>
-				<a href="moreinfo.html">Need more information?</a></div>
-		</div>
-	</body>
+                <ul>
+                    <li>It helps your friends to find the best rebates around town.</li>
+                    <li>It helps you to find the best rebates around town.</li>
+                    <li>It helps you earn rebates on products.</li>
+                </ul>
+                <a href="moreinfo.html">Need more information?</a></div>
+        </div>
+
+
+    </body>
 </html>
 
