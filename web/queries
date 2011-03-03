@@ -10,7 +10,7 @@ CREATE TABLE  `rebate_sharer`.`contributions` (
   `email` varchar(30) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `comment` varchar(100) NOT NULL,
-  `photo` blob NOT NULL,
+  `photo` mediumblob NOT NULL,
   PRIMARY KEY (`pname`),
   KEY `new_fk_constraint` (`email`),
   CONSTRAINT `new_fk_constraint` FOREIGN KEY (`email`) REFERENCES `USERS` (`email`)
