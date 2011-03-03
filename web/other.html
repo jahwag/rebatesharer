@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+                      "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Capture Photo</title>
+
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+    var db; // variable for DB 
+
+    // Wait for PhoneGap to connect with the device
+    //
+    function onLoad() {
+        document.addEventListener("deviceready",onDeviceReady,false);
+    }
+
+    // PhoneGap is ready to be used!
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+        db = window.openDatabase("Database", "1.0", "PhoneGap Demo", 200000);
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      var canvas = document.createElement("canvas");
+	  canvas.width = imageData.width;
+	  canvas.height = imageData.height;
+	  var ctx = canvas.getContext("2d");
+	  //ctx.drawImage(imageData,0,0);
+	  //var dataURL = canvas.toDataURL();	  	  	 
+	  
+      // Uncomment to view the base64 encoded image data
+      console.log(imageData);
+
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+      
+      db.transaction(
+	    function(tx) {
+	      tx.executeSql('INSERT INTO PICTURES (id, product_picture) VALUES (?, ?);', [null, imageData]);
+	      //tx.executeSql('INSERT INTO DEMO (id, data) VALUES (?, ?);', [null, "New row"]);
+	    }
+	  );
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+      //navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, destinationType: destinationType.FILE_URI });
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    // 
+    function onFail(mesage) {
+      alert('Failed because: ' + message);
+    }
+    
+    // Populate the database 
+    //
+    function onCreateTable(tx) {
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('DROP TABLE IF EXISTS PICTURES');         
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY, data)');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS USERS (email TEXT PRIMARY KEY, full_name TEXT, pass TEXT)');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS REBATES (id INTEGER PRIMARY KEY, product_name TEXT, location TEXT, original_price TEXT, discounted_price TEXT, price_tag BLOB, product_picture BLOB)');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS PICTURES (id INTEGER PRIMARY KEY, product_picture BLOB)');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (null, "First row")');                  
+         //tx.executeSql('INSERT INTO DEMO (id, data) VALUES (null, "Second row")');
+         tx.executeSql('INSERT INTO PICTURES (id, product_picture) VALUES (null, null)');
+    }
+    
+    // Populate the database 
+    //
+    function onListTable(tx) {
+      tx.executeSql('SELECT * FROM PICTURES', [], querySuccess, errorCB);               
+    }
+    
+    // Query the success callback
+    //
+    function querySuccess(tx, results) {
+        var len = results.rows.length;
+        console.log("DEMO table: " + len + " rows found.");
+        //alert("DEMO table: " + len + " rows found.");
+        
+        var smallImage = document.getElementById('smallImage');
+        smallImage.style.display = 'block';           
+        
+        for (var i=0; i<len; i++){
+            //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+            //alert("Row = " + i + " ID = " + results.rows.item(i).id);
+            smallImage.src = "data:image/jpeg;base64," + results.rows.item(i).product_picture;
+        }
+    }
+    
+    // Create Table
+    //
+    function createTable() {
+       db.transaction(onCreateTable, errorCB, successCB);       
+    }
+    
+    // Create Table
+    //
+    function listTable() {
+       db.transaction(onListTable, errorCB);       
+    }
+    
+    // Transaction error callback
+    //
+    function errorCB(tx, err) {
+        alert("Error processing SQL: "+err);
+    }
+
+    // Transaction success callback
+    //
+    function successCB() {
+        alert("success!");
+    }
+    
+    </script>
+  </head>
+  <body onload="onLoad()">
+    <button onclick="createTable();">Create Table</button> <br>
+    <button onclick="listTable();">List Records</button> <br>
+    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+  </body>
+</html>
