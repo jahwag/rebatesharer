@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
@@ -11,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,11 +61,17 @@ public class Login extends HttpServlet {
 
                 if (!res) {
                     out.println("<h1>Login failed...</h1>");
-                    out.println("<p>You should be redirected now.</p>");
+                    //out.println("<p>You should be redirected now.</p>");
                     //response.sendRedirect("index.html");
                 } else {
                     String str = rs.getString(1);
                     out.println("<h1>Login was successful...welcome " + str + "</h1>");
+
+                    // Create cookie
+                    Cookie sessionCookie = new Cookie("email", user);
+                    sessionCookie.setMaxAge(60 * 60);  // 1 hour expiry time
+                    response.addCookie(sessionCookie);
+
                     response.sendRedirect("main.html");
                 }
 
