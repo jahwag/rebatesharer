@@ -23,10 +23,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <form id="home" action="do_search.jsp" method="get" class="form">
+        <form id="home" action="do_search.jsp"  method="get" class="form">
             <div class="toolbar">
                 <h1>Search</h1>
-                <a class="back" href="main.html">Back</a>
+                <a class="back" href="main.html" target="_webapp">Back</a>
             </div>
             <p>What product would you like to find?</p>
             <ul class="rounded">
