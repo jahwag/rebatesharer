@@ -105,56 +105,11 @@
                 <a href="profile.jsp" target="_webapp" class="button flip">My profile</a>
             </div>
             <ul class="edgetoedge">
-                <li class="arrow"><a href="#upload_rebate">Upload rebate</a></li>
+                <li class="arrow"><a href="upload_rebate.html"  target="_webapp">Upload rebate</a></li>
                 <li class="arrow"><a href="search.jsp" target="_webapp">Search rebates</a></li>
             </ul>
         </div>
-        <div id="upload_rebate">
-            <div class="toolbar">
-                <h1>Upload rebate</h1>
-                <a href="#upload_rebate_1" class="button flip">Continue</a>
-            </div>
-            <p>You're just three steps away form sharing your rebate!</p>
-            <ul>
-                <li>1. Take a picture of the product.</li>
-                <li>2. Take a picture of the product price tag.</li>
-                <li>3. If necessary, manually edit the captured fields.</li>
-            </ul>
-            <a class="button back" href="#">Back</a>
-        </div>
-        <div id="upload_rebate_1">
-            <div class="toolbar">                
-                <a class="button flip" href="#upload_rebate_2">Next</a>
-                <h4>Upload rebate - Step 1</h4>
-            </div>            
-            <button onclick="capturePhoto();">Capture Photo</button> <br/><br/>
-            <a class="button back" href="#">Back</a>            
-        </div>
-        <div id="upload_rebate_2">
-            <div class="toolbar">
-                <h4>Upload rebate - Step 2</h4>
-                <a class="button flip" href="#upload_rebate_3">Next</a>
-            </div>
-            <p>Snap a photo of the price tag!</p>
-            <button onclick="capturePhoto();">Capture Photo</button> <br/>
-            <a class="button back" href="#">Back</a>            
-        </div>
-        <div id="upload_rebate_3">
-            <div class="toolbar">
-                <h4>Upload rebate - Step 3</h4>
-            </div>
-            <p>Fill the details!</p>
-            <form name="upload_rebate" action="upload_rebate.jsp" method="post" class="form">
-                <p>Product Name <input type="text" name="product_name" value="" size="30" /></p>
-                <p>Location <input type="text" name="location" value="" size="30" /></p>
-                <p>Original Price <input type="text" name="original_price" value="" size="10" /></p>
-                <p>Discounted Price <input type="text" name="discounted_price" value="" size="10" /></p>
-                <p><img name="product_image" id="pImage" src="" alt="Product Image"></img></p>
-                <p>Comments<textarea name="comments" rows="4" cols="30"></textarea></p>
-            </form>
-            <a class="button flip" href="search.jsp" target="_webapp">Upload</a>            
-            <a class="button back" href="#">Back</a>            
-        </div>
+        
     </body>
 </html>
 
