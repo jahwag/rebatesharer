@@ -11,14 +11,44 @@
         <script type="text/javascript">
             $.jQTouch();
         </script>
+        <script>
+            function onSuccessPhoto(imageURI) {
+                var image = document.getElementById('myPhoto');
+                image.src = imageURI;
+                var image2 = document.getElementById('myPhoto2');
+                image2.src = imageURI;tform+tools
+                ls
+                
+            }
+
+            function onSuccessTag(imageURI) {
+                var image = document.getElementById('myTag');
+                image.src = imageURI;
+            }
+
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
+
+            function capturePhoto(tagPic) {
+                if(tagPic == true) {
+                    navigator.camera.getPicture(onSuccessTag, onFail, { quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI });
+                }
+                else {
+                    navigator.camera.getPicture(onSuccessPhoto, onFail, { quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI });
+                }
+            }
+        </script>
         <title>Rebate Sharer V0.01 - Share rebates with the world!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-          <div id="home">
+        <div id="home">
             <div class="toolbar">
                 <h1>Upload rebate</h1>
-                
+
                 <a href="#upload_rebate_1" class="button flip">Continue</a>
             </div>
             <p>You're just three steps away form sharing your rebate!</p>
@@ -27,23 +57,25 @@
                 <li>2. Take a picture of the product price tag.</li>
                 <li>3. If necessary, manually edit the captured fields.</li>
             </ul>
-           <a class="back" href="main.html" target="_webapp">Back</a>
+            <a class="back" href="main.html" target="_webapp">Back</a>
         </div>
         <div id="upload_rebate_1">
             <div class="toolbar">
                 <a class="button flip" href="#upload_rebate_2">Next</a>
-                <h1>Upload rebate - Step 1</h1>
+                <h1>Step 1</h1>
             </div>
-            <button onclick="capturePhoto();">Capture Photo</button> <br/><br/>
+            <button onclick="capturePhoto(false);">Capture Photo</button><br/>
+            <p><img id="myPhoto" src="" alt="Product Image"></img></p>
             <a class="button back" href="#">Back</a>
         </div>
         <div id="upload_rebate_2">
             <div class="toolbar">
-                <h1>Upload rebate - Step 2</h1>
+                <h1>Step 2</h1>
                 <a class="button flip" href="#upload_rebate_3" >Next</a>
             </div>
             <p>Snap a photo of the price tag!</p>
-            <button onclick="capturePhoto();">Capture Photo</button> <br/>
+            <button onclick="capturePhoto(true);">Capture Photo</button>
+            <p><img id="myTag" src="" alt="Product Image"></img></p>
             <a class="button back" href="#">Back</a>
         </div>
         <form id="upload_rebate_3" action="do_upload_rebate.jsp" method="POST" class="form">
@@ -56,7 +88,7 @@
             <p>Location <input type="text" name="location" value="" size="30" /></p>
             <p>Original Price <input type="text" name="original_price" value="" size="10" /></p>
             <p>Discounted Price <input type="text" name="discounted_price" value="" size="10" /></p>
-            <p><img id="product_image" id="pImage" src="" alt="Product Image"></img></p>
+            <p><img id="myPhoto2" src="" alt="Product Image"></img></p>
             <p>Comments<textarea name="comments" rows="4" cols="30"></textarea>
                 <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton" onclick="javascript:alert('Thank you for your submission.')">Submit</a></p>
         </form>
