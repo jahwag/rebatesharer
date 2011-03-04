@@ -44,16 +44,18 @@
             // Called when a photo is successfully retrieved
             //
             function onPhotoDataSuccess(imageData) {
-                db.transaction(
-                    function(tx) {
-                        tx.executeSql('INSERT INTO tmp_pictures (id, image) VALUES (?, ?);', [null, imageData]);
-                        //tx.executeSql('INSERT INTO DEMO (id, data) VALUES (?, ?);', [null, "New row"]);
-                        tx.executeSql('SELECT * FROM tmp_pictures;', [], function(tx, results) {
-                        alert("Records: " + results.rows.length + " id: " + results.rows.item(0).id);
-                        document.getElementById("pImage").src = "data:image/jpeg;base64," + results.rows.item(0).image;
-                        });
-                    }
-                );                
+                //navigator.notification.alert('Photo capture succeeded.');
+                document.getElementById("pImage").src = "data:image/jpeg;base64," + imageData;
+                //db.transaction(
+                //    function(tx) {
+                //        tx.executeSql('INSERT INTO tmp_pictures (id, image) VALUES (?, ?);', [null, imageData]);
+                //        //tx.executeSql('INSERT INTO DEMO (id, data) VALUES (?, ?);', [null, "New row"]);
+                //        tx.executeSql('SELECT * FROM tmp_pictures;', [], function(tx, results) {
+                //        alert("Records: " + results.rows.length + " id: " + results.rows.item(0).id);
+                //        document.getElementById("pImage").src = "data:image/jpeg;base64," + results.rows.item(0).image;
+                //        });
+                //    }
+                //);
                 //picProduct = imageData;
                 // Get image handle
                 //snappedPicture = imageData;
@@ -141,18 +143,16 @@
             <div class="toolbar">
                 <h4>Upload rebate - Step 3</h4>
             </div>
-            <p>Fill the details!</p>            
-            Product Name <input type="text" name="Product_Name" value="" size="30" /><br/>
-            Location <input type="text" name="Location" value="" size="30" /><br/>
-            Original Price <input type="text" name="Original_Price" value="" size="10" /><br/>
-            Discounted Price <input type="text" name="Discounted_Price" value="" size="10" /><br/>
-            <img id="pImage" src="button_mask.png" alt="Product Image"></img><br/>
-            Comments<textarea name="comments" rows="4" cols="30"></textarea><br/>
-            <button onclick="uploadRebate();">Upload Rebate</button> <br/>            
-            <script type="text/javascript">
-                loadPicture();
-                //document.getElementById("pImage").src="button_mask.png";
-            </script>
+            <p>Fill the details!</p>
+            <form name="upload_rebate" action="upload_rebate.jsp" method="post" class="form">
+                <p>Product Name <input type="text" name="product_name" value="" size="30" /></p>
+                <p>Location <input type="text" name="location" value="" size="30" /></p>
+                <p>Original Price <input type="text" name="original_price" value="" size="10" /></p>
+                <p>Discounted Price <input type="text" name="discounted_price" value="" size="10" /></p>
+                <p><img name="product_image" id="pImage" src="" alt="Product Image"></img></p>
+                <p>Comments<textarea name="comments" rows="4" cols="30"></textarea></p>
+            </form>
+            <a class="button flip" href="search.jsp" target="_webapp">Upload</a>            
             <a class="button back" href="#">Back</a>            
         </div>
     </body>
