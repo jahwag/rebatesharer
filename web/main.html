@@ -21,6 +21,7 @@
             var pictureSource;   // picture source
             var destinationType; // sets the format of returned
             var db; // variable for DB
+            var picProduct;            
 
             // Wait for PhoneGap to connect with the device
             function onLoad() {
@@ -35,7 +36,7 @@
                 db.transaction(function(tx) { 
                     tx.executeSql('CREATE TABLE IF NOT EXISTS tmp_pictures (' +
                         'id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image MEDIUMBLOB NOT NULL);'
-                    );
+                );
                     tx.executeSql('DROP FROM tmp_pictures;');
                 });
             }
@@ -43,10 +44,17 @@
             // Called when a photo is successfully retrieved
             //
             function onPhotoDataSuccess(imageData) {
-                db.transaction(function(tx) {
-                    tx.executeSql('INSERT INTO tmp_pictures (id, image) VALUES(?, ?);',
-                    [null, imageData]);
-                });
+                db.transaction(
+                    function(tx) {
+                        tx.executeSql('INSERT INTO tmp_pictures (id, image) VALUES (?, ?);', [null, imageData]);
+                        //tx.executeSql('INSERT INTO DEMO (id, data) VALUES (?, ?);', [null, "New row"]);
+                        tx.executeSql('SELECT * FROM tmp_pictures;', [], function(tx, results) {
+                        alert("Records: " + results.rows.length + " id: " + results.rows.item(0).id);
+                        document.getElementById("pImage").src = "data:image/jpeg;base64," + results.rows.item(0).image;
+                        });
+                    }
+                );                
+                //picProduct = imageData;
                 // Get image handle
                 //snappedPicture = imageData;
                 
@@ -58,6 +66,12 @@
                 // The inline CSS rules are used to resize the image
                 //smallImage.src = "data:image/jpeg;base64," + imageData;
             }
+
+            // Called when a photo is successfully retrieved
+            function onPhotoURISuccess(imageURI) {
+                document.getElementById("pImage").src = imageURI;
+            }
+
             // Called if something bad happens.
             function onFail(mesage) {
                 alert('Failed because: ' + message);
@@ -67,6 +81,16 @@
                 // Take picture using device camera and retrieve image as base64-encoded string
                 navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
                 //navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, destinationType: destinationType.FILE_URI });
+            }
+            function loadPicture() {
+                db.transaction(
+                    function(tx) {
+                        tx.executeSql('SELECT * FROM tmp_pictures;', [], function(tx, results) {
+                        alert("Records: " + results.rows.length + " id: " + results.rows.item(0).id);
+                        document.getElementById("pImage").src = "data:image/jpeg;base64," + results.rows.item(0).image;
+                        });
+                    }
+                );
             }
         </script>
         <title>Rebate Sharer V0.01 - Share rebates with the world!</title>
@@ -117,14 +141,19 @@
             <div class="toolbar">
                 <h4>Upload rebate - Step 3</h4>
             </div>
-            <p>Fill the details!</p>
-            <p>Snap a photo of the product!</p>
-            Product Name <input type="text" name="Product_Name" value="" size="50" /><br/>
-            Location <input type="text" name="Location" value="" size="50" /><br/>
-            Original Price <input type="text" name="Original_Price" value="" size="10" />
+            <p>Fill the details!</p>            
+            Product Name <input type="text" name="Product_Name" value="" size="30" /><br/>
+            Location <input type="text" name="Location" value="" size="30" /><br/>
+            Original Price <input type="text" name="Original_Price" value="" size="10" /><br/>
             Discounted Price <input type="text" name="Discounted_Price" value="" size="10" /><br/>
-            <button onclick="uploadRebate();">Upload Rebate</button> <br/>
-            <a class="button back" href="#">Back</a>
+            <img id="pImage" src="button_mask.png" alt="Product Image"></img><br/>
+            Comments<textarea name="comments" rows="4" cols="30"></textarea><br/>
+            <button onclick="uploadRebate();">Upload Rebate</button> <br/>            
+            <script type="text/javascript">
+                loadPicture();
+                //document.getElementById("pImage").src="button_mask.png";
+            </script>
+            <a class="button back" href="#">Back</a>            
         </div>
     </body>
 </html>
