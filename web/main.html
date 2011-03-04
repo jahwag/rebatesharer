@@ -19,7 +19,8 @@
         </script>
         <script>
             var pictureSource;   // picture source
-            var destinationType; // sets the format of returned value
+            var destinationType; // sets the format of returned
+            var db; // variable for DB
 
             // Wait for PhoneGap to connect with the device
             function onLoad() {
@@ -30,20 +31,32 @@
             function onDeviceReady() {
                 pictureSource=navigator.camera.PictureSourceType;
                 destinationType=navigator.camera.DestinationType;
+                db = window.openDatabase("Database", "1.0", "RebateSharer", 200000);
+                db.transaction(function(tx) { 
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS tmp_pictures (' +
+                        'id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, image MEDIUMBLOB NOT NULL);'
+                    );
+                    tx.executeSql('DROP FROM tmp_pictures;');
+                });
             }
 
             // Called when a photo is successfully retrieved
             //
             function onPhotoDataSuccess(imageData) {
+                db.transaction(function(tx) {
+                    tx.executeSql('INSERT INTO tmp_pictures (id, image) VALUES(?, ?);',
+                    [null, imageData]);
+                });
                 // Get image handle
-                var smallImage = document.getElementById('smallImage');
+                //snappedPicture = imageData;
+                
 
                 // Unhide image elements
-                smallImage.style.display = 'block';
+                //smallImage.style.display = 'block';
 
                 // Show the captured photo
                 // The inline CSS rules are used to resize the image
-                smallImage.src = "data:image/jpeg;base64," + imageData;
+                //smallImage.src = "data:image/jpeg;base64," + imageData;
             }
             // Called if something bad happens.
             function onFail(mesage) {
@@ -84,18 +97,33 @@
             <a class="button back" href="#">Back</a>
         </div>
         <div id="upload_rebate_1">
-            <div class="toolbar">
-                <h1>Upload rebate - Step 1</h1>
-            </div>
-            <p>Snap a photo of the product!</p>
-            <button onclick="capturePhoto();">Capture Photo</button> <br/>
-            <a class="button back" href="#">Back</a>
+            <div class="toolbar">                
+                <a class="button flip" href="#upload_rebate_2">Next</a>
+                <h4>Upload rebate - Step 1</h4>
+            </div>            
+            <button onclick="capturePhoto();">Capture Photo</button> <br/><br/>
+            <a class="button back" href="#">Back</a>            
         </div>
         <div id="upload_rebate_2">
             <div class="toolbar">
-                <h1>Upload rebate - Step 2</h1>
+                <h4>Upload rebate - Step 2</h4>
+                <a class="button flip" href="#upload_rebate_3">Next</a>
             </div>
+            <p>Snap a photo of the price tag!</p>
+            <button onclick="capturePhoto();">Capture Photo</button> <br/>
+            <a class="button back" href="#">Back</a>            
+        </div>
+        <div id="upload_rebate_3">
+            <div class="toolbar">
+                <h4>Upload rebate - Step 3</h4>
+            </div>
+            <p>Fill the details!</p>
             <p>Snap a photo of the product!</p>
+            Product Name <input type="text" name="Product_Name" value="" size="50" /><br/>
+            Location <input type="text" name="Location" value="" size="50" /><br/>
+            Original Price <input type="text" name="Original_Price" value="" size="10" />
+            Discounted Price <input type="text" name="Discounted_Price" value="" size="10" /><br/>
+            <button onclick="uploadRebate();">Upload Rebate</button> <br/>
             <a class="button back" href="#">Back</a>
         </div>
         <div id="search">
