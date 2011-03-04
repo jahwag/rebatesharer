@@ -1,6 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
     <head>
         <link rel="stylesheet" href="jqtouch/jqtouch.min.css" type="text/css" />
         <link rel="stylesheet" href="themes/apple/theme.min.css" type="text/css" />
@@ -48,10 +48,36 @@
             <div class="toolbar">
                 <h1>Contributions</h1>
             </div>
-            <ul>
-                <li class="arrow"><a href="#">Stylish white MP3 player</a></li>
-                <li class="arrow"><a href="#">Free strategy guide with World of Warcraft</a></li>
-            </ul>
+
+            <%@ page import="java.sql.*" %>
+                <%  //
+                            //String myParameter = request.getParameter("search");
+                            String connectionURL = "jdbc:mysql://localhost:3306/rebate_sharer?user=root;password=1234";
+                            Connection connection = null;
+                            Statement statement = null;
+                            ResultSet rs = null;
+
+                            Class.forName("com.mysql.jdbc.Driver").newInstance();
+                            connection = DriverManager.getConnection(connectionURL, "root", "1234");
+                            statement = connection.createStatement();
+                            rs = statement.executeQuery("SELECT * from contributions WHERE email='jahziah@kth.se'"); // TODO add param.
+
+                            out.println("<ul>");
+                            while (rs.next()) {
+                                out.println("<li>");
+                                out.println(rs.getString("pname") + "");
+                                out.println(rs.getString("orgprice") + "");
+                                out.println(rs.getString("discprice") + "");
+                                out.println(rs.getString("location") + "");
+                                out.println(rs.getString("timestamp") + "");
+                                out.println("<br/>");
+                                out.println("</li>");
+                            }
+                            out.println("</ul>");
+
+                            rs.close();
+                %>
+
             <a class="button back" href="#">Back</a>
         </div>
     </body>
